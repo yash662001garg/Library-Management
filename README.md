@@ -1,18 +1,45 @@
-## Getting Started
+┌─────────────────────────────────────────────────────────────────────────┐
+│                   LibraryManagementSystem                               │
+├─────────────────────────────────────────────────────────────────────────┤
+│ - books: Map<String, Book>                                              │
+│ - patrons: Map<String, Patron>                                          │
+│ - borrowRecords: Map<String, BorrowRecord>                              │
+├─────────────────────────────────────────────────────────────────────────┤
+│ + addBook(), removeBook(), updateBook(), searchBooks()                  │
+│ + addPatron(), updatePatron(), getPatron()                              │
+│ + borrowBook(), returnBook(), getPatronBorrowHistory()                  │
+│ + getOverdueBooks(), displayLibraryStatus()                             │
+└─────────────────────────────────────────────────────────────────────────┘
+         │              │              │
+         ▼              ▼              ▼
+    ┌────────┐     ┌────────┐    ┌──────────────┐
+    │  Book  │     │ Patron │    │ BorrowRecord │
+    ├────────┤     ├────────┤    ├──────────────┤
+    │- isbn  │     │- id    │    │- recordId    │
+    │- title │     │- name  │    │- patronId    │
+    │- author│     │- email │    │- isbn        │
+    │- year  │     │- hist[]│    │- borrowDate  │
+    │- copies│     └────────┘    │- dueDate     │
+    └────────┘                    │- returnDate  │
+                                 └──────────────┘
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+┌──────────────────────────────────┐
+│  LibrarySearchStrategy           │
+│  (Interface)                     │
+├──────────────────────────────────┤
+│ + search(books, query): List     │
+└──────────────────────────────────┘
+    ▲           ▲           ▲
+    │           │           │
+    │           │           │
+    ▼           ▼           ▼
+┌─────────┐ ┌─────────┐ ┌──────┐
+│ Title   │ │ Author  │ │ ISBN │
+│Strategy │ │Strategy │ │Strat.│
+└─────────┘ └─────────┘ └──────┘
 
-## Folder Structure
-
-The workspace contains two folders by default, where:
-
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
-
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
-
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+┌──────────────────────────────┐
+│ SearchStrategyFactory        │
+├──────────────────────────────┤
+│ + createStrategy(type)       │
+└──────────────────────────────┘
